@@ -24,10 +24,10 @@ public class UserController {
 
 
     @GetMapping("/create")
-    public String createUser(Model model){
+    public String createUser(Model model){ // Bu sayfanın ikinci aşaması + Projenin üçüncü aşaması olarak metod yazıyorum
 
         model.addAttribute("user", new UserDTO());
-        model.addAttribute("roles", roleService.listAllRoles());
+        model.addAttribute("roles", roleService.listAllRoles()); //Bu sayfanın kaba taslak üçüncü aşaması + Projenin sonraki aşaması olarak metod yazıyorum
         model.addAttribute("users", userService.listAllUsers());
 
         return "/user/create";
@@ -84,7 +84,8 @@ public class UserController {
 
     @GetMapping("/delete/{username}")
     public String deleteUser(@PathVariable("username") String username) {
-        userService.deleteByUserName(username);
+       // userService.deleteByUserName(username);
+        userService.delete(username);
         return "redirect:/user/create";
     }
 
