@@ -41,7 +41,7 @@ public class TaskController {
 
 
     @PostMapping("/create")
-    public String insertTask(@ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+    public String insertTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
 
@@ -89,7 +89,7 @@ public class TaskController {
 //    }
 
     @PostMapping("/update/{id}")
-    public String updateTask(@ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+    public String updateTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
 
@@ -106,18 +106,19 @@ public class TaskController {
         return "redirect:/task/create";
 
     }
-/*
+
     @GetMapping("/employee/pending-tasks")
     public String employeePendingTasks(Model model) {
-        model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
+        model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
         return "/task/pending-tasks";
     }
 
     @GetMapping("/employee/archive")
     public String employeeArchivedTasks(Model model) {
-        model.addAttribute("tasks", taskService.findAllTasksByStatus(Status.COMPLETE));
+        model.addAttribute("tasks", taskService.listAllTasksByStatus(Status.COMPLETE));
         return "/task/archive";
     }
+
 
     @GetMapping("/employee/edit/{id}")
     public String employeeEditTask(@PathVariable Long id, Model model) {
@@ -126,7 +127,7 @@ public class TaskController {
 //        model.addAttribute("projects", projectService.findAll());
 //        model.addAttribute("employees", userService.findEmployees());
         model.addAttribute("statuses", Status.values());
-        model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
+        model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
 
         return "/task/status-update";
 
@@ -138,18 +139,19 @@ public class TaskController {
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("statuses", Status.values());
-            model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
+            model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
 
             return "/task/status-update";
 
         }
 
-        taskService.updateStatus(task);
+
+        taskService.update(task);
 
         return "redirect:/task/employee/pending-tasks";
 
     }
 
- */
+
 
 }
